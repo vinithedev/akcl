@@ -41,4 +41,3 @@ Copy and Paste createTable.txt content into CMD
 + Dual user type and privileges
 
 <img src="images/001ScreenS.png" align="middle" width="880" height="466">
-
