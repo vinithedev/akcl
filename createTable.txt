@@ -1,0 +1,183 @@
+Create table TB_USUARIO (
+	cod_usuario Integer NOT NULL  ,
+	tipo_usuario Varchar2 (20) NOT NULL ,
+	login Varchar2 (20) NOT NULL  UNIQUE ,
+	senha Varchar2 (20) NOT NULL ,
+	status Number(1,0) Default 0 NOT NULL check (status in (0,1)),
+primary key (cod_usuario) 
+) 
+;
+
+Create table TB_VENDA (
+	cod_venda Integer NOT NULL  ,
+	descricao Varchar2 (200),
+	valor Double precision NOT NULL ,
+	cod_usuario Integer NOT NULL ,
+primary key (cod_venda) 
+) 
+;
+
+Create table TB_PRODUTO (
+	nome Varchar2 (100) NOT NULL ,
+	cod_produto Integer NOT NULL  ,
+	fornecedor Varchar2 (100),
+	valor_compra Double precision NOT NULL ,
+	valor_venda Double precision NOT NULL ,
+	status Number(1,0) Default 0 NOT NULL check (status in (0,1)),
+	descricao Varchar2 (300),
+primary key (cod_produto) 
+) 
+;
+
+Create table TB_MENSALIDADE (
+	cod_mensalidade Integer NOT NULL ,
+	data_venc Date NOT NULL ,
+	valor Double precision NOT NULL ,
+	descricao Varchar2 (800) NOT NULL ,
+	cod_pessoa Integer NOT NULL ,
+	status Varchar2 (50) NOT NULL ,
+primary key (cod_mensalidade,cod_pessoa) 
+) 
+;
+
+Create table TB_ALUNO (
+	cod_pessoa Integer NOT NULL ,
+	cidade Varchar2 (100),
+	data_nasc Date,
+	nome_responsavel Varchar2 (200),
+	cpf_responsavel Varchar2 (50),
+	rg_responsavel Varchar2 (50),
+	endereco_responsavel Varchar2 (200),
+	tel_responsavel_um Varchar2 (50),
+	tel_responsavel_dois Varchar2 (50),
+	observacoes Varchar2 (800),
+	valor_mens Double precision NOT NULL ,
+	dia_venc_mens Integer NOT NULL ,
+primary key (cod_pessoa) 
+) 
+;
+
+Create table TB_EVENTO (
+	cod_evento Integer NOT NULL  ,
+	nome Varchar2 (200) NOT NULL  ,
+	descricao Varchar2 (800),
+	data Date NOT NULL  ,
+	horario Varchar2 (100) NOT NULL  ,
+	valor Double precision,
+primary key (cod_evento) 
+) 
+;
+
+Create table TB_PESSOA (
+	cod_pessoa Integer NOT NULL  ,
+	nome Varchar2 (200) NOT NULL ,
+	rg Varchar2 (50),
+	cpf Varchar2 (50),
+	telefone Varchar2 (50),
+	status Number(1,0) Default 1 NOT NULL check (status in (0,1)), --Implica se mensalidade está sendo gerada ou não.
+	endereco Varchar2 (200),
+primary key (cod_pessoa) 
+) 
+;
+
+Create table TB_VENDA_PRODUTO (
+	cod_venda Integer NOT NULL ,
+	cod_produto Integer NOT NULL ,
+primary key (cod_venda,cod_produto) 
+) 
+;
+
+Create table TB_ALUNO_VENDA (
+	cod_venda Integer NOT NULL ,
+	cod_pessoa Integer NOT NULL ,
+primary key (cod_venda,cod_pessoa) 
+) 
+;
+
+Create table TB_ALUNO_EVENTO (
+	cod_evento Integer NOT NULL ,
+	cod_pessoa Integer NOT NULL ,
+primary key (cod_evento,cod_pessoa) 
+) 
+;
+
+Create table TB_PROFESSOR (
+	salario Double precision NOT NULL ,
+	faixa Varchar2 (100) NOT NULL ,
+	cod_pessoa Integer NOT NULL ,
+primary key (cod_pessoa) 
+) 
+;
+
+Create table TB_ALUNO_PROFESSOR (
+	cod_pessoa Integer NOT NULL,
+primary key (cod_pessoa) 
+) 
+;
+
+Create table TB_PROFESSOR_EVENTO (
+	cod_evento Integer NOT NULL ,
+	cod_pessoa Integer NOT NULL ,
+primary key (cod_evento,cod_pessoa) 
+) 
+;
+
+
+
+
+-- Create Foreign keys section
+
+Alter table TB_VENDA add  foreign key (cod_usuario) references TB_USUARIO (cod_usuario) 
+;
+
+Alter table TB_VENDA_PRODUTO add  foreign key (cod_venda) references TB_VENDA (cod_venda) 
+;
+
+Alter table TB_ALUNO_VENDA add  foreign key (cod_venda) references TB_VENDA (cod_venda) 
+;
+
+Alter table TB_VENDA_PRODUTO add  foreign key (cod_produto) references TB_PRODUTO (cod_produto) 
+;
+
+Alter table TB_ALUNO_VENDA add  foreign key (cod_pessoa) references TB_ALUNO (cod_pessoa) 
+;
+
+Alter table TB_MENSALIDADE add  foreign key (cod_pessoa) references TB_ALUNO (cod_pessoa) 
+;
+
+Alter table TB_ALUNO_EVENTO add  foreign key (cod_pessoa) references TB_ALUNO (cod_pessoa) 
+;
+
+Alter table TB_ALUNO_PROFESSOR add  foreign key (cod_pessoa) references TB_ALUNO (cod_pessoa) 
+;
+
+Alter table TB_ALUNO_EVENTO add  foreign key (cod_evento) references TB_EVENTO (cod_evento) 
+;
+
+Alter table TB_PROFESSOR_EVENTO add  foreign key (cod_evento) references TB_EVENTO (cod_evento) 
+;
+
+Alter table TB_ALUNO add  foreign key (cod_pessoa) references TB_PESSOA (cod_pessoa) 
+;
+
+Alter table TB_PROFESSOR add  foreign key (cod_pessoa) references TB_PESSOA (cod_pessoa) 
+;
+
+Alter table TB_ALUNO_PROFESSOR add  foreign key (cod_pessoa) references TB_PROFESSOR (cod_pessoa) 
+;
+
+Alter table TB_PROFESSOR_EVENTO add  foreign key (cod_pessoa) references TB_PROFESSOR (cod_pessoa) 
+;
+
+create sequence cod_pessoa_seq start with 1 increment by 1;
+
+create sequence cod_login_seq start with 1 increment by 1;
+
+create sequence cod_mensalidade_seq start with 1 increment by 1;
+
+create sequence cod_evento_seq start with 1 increment by 1;
+
+create sequence cod_produto_seq start with 1 increment by 1;
+
+create sequence cod_usuario_seq start with 1 increment by 1;
+
