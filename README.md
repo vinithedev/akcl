@@ -40,5 +40,5 @@ Copy and Paste createTable.txt content into CMD
 + System user management
 + Dual user type and privileges
 
-<img src="images/001ScreenS.png" align="left" width="1024" height="546">
+<img src="images/001ScreenS.png" align="middle" width="880" height="466">
 
