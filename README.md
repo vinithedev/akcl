@@ -8,7 +8,7 @@ It was designed with [UML patterns](http://astah.net) and built along with Java 
 + It was developed with [NetBeans IDE 8.2](https://netbeans.org/downloads/8.2/). So, it's probably a good idea to import the code to this IDE.
 + Install [Java](https://www.java.com/en/download/)
 + Install [Oracle Express](https://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html)
-+ Check if the following path is in the System Variable's Path: *;C:\oraclexe\app\oracle\product*<strong>\xx.x.x\</strong>*server\bin*
++ Check if the following path is in the System Variable's Path: ;C:\oraclexe\app\oracle\product\xx.x.x\server\bin
 
 
 ```sql
